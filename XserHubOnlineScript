@@ -247,7 +247,7 @@ Dropdown:SetValue("...")
 Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
-Tabs.Tab3:AddSection("Direction")
+local dir = Tabs.Tab3:AddSection("Direction")
 
 local Slider = Tabs.Tap3:AddSlider("XSlider", {
     Title = "X",
@@ -283,41 +283,7 @@ local Slider = Tabs.Tap3:AddSlider("ZSlider", {
     end
 })
 
-Tabs.Tab3:AddSection("Advance direction")
 
-local Slider = Tabs.Tap3:AddSlider("AXSlider", {
-    Title = "AX",
-    Description = "Right side, Left side",
-    Default = 0,
-    Min = -10,
-    Max = 10,
-    Rounding = 1,
-    Callback = function(Gx)
-        Ax = Gx
-    end
-})
-local Slider = Tabs.Tap3:AddSlider("AYSlider", {
-    Title = "AY",
-    Description = "Above, Below",
-    Default = 0,
-    Min = -10,
-    Max = 10,
-    Rounding = 1,
-    Callback = function(Gy)
-        Ay = Gy
-    end
-})
-local Slider = Tabs.Tap3:AddSlider("AZSlider", {
-    Title = "AZ",
-    Description = "Front, Back",
-    Default = 0,
-    Min = -10,
-    Max = 10,
-    Rounding = 1,
-    Callback = function(Gz)
-        Az = Gz
-    end
-})
 
 local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
 
@@ -326,7 +292,7 @@ Toggle:OnChanged(function(Run)
     while _G.TpPlayer do task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,0.5,Ax,Ay,Az)
+    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,)
         end)
     end
 end)
