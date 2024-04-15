@@ -228,7 +228,7 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
         print("Input updated:", Input.Value)
     end)
 end
-local secTpPlayer = Tabs.Tap3:AddSection("Interface")
+local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
 Plr = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
@@ -247,7 +247,7 @@ Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
 
-local secdirection = Tabs.Tap3:AddSection("Direction")
+local secdirection = Tabs.Tap3:AddSection("Direction (Teleport to Player)")
 
 local Slider = secdirection:AddSlider("XSlider", {
     Title = "X",
@@ -283,14 +283,14 @@ local Slider = secdirection:AddSlider("ZSlider", {
     end
 })
 
-local secADdirection = Tabs.Tap3:AddSection("Advance direction")
+local secADdirection = Tabs.Tap3:AddSection("Advance direction (Teleport to Player)")
 
 local Slider = secADdirection:AddSlider("AXSlider", {
     Title = "AdX",
     Description = "Right side, Left side",
-    Default = 0,
-    Min = -10,
-    Max = 10,
+    Default = 12,
+    Min = -15,
+    Max = 15,
     Rounding = 1,
     Callback = function(Gx)
         Ax = Gx
@@ -300,8 +300,8 @@ local Slider = secADdirection:AddSlider("AYSlider", {
     Title = "AdY",
     Description = "Above, Below",
     Default = 0,
-    Min = -10,
-    Max = 10,
+    Min = -20,
+    Max = 20,
     Rounding = 1,
     Callback = function(Gy)
         Ay = Gy
@@ -319,6 +319,19 @@ local Slider = secADdirection:AddSlider("AZSlider", {
     end
 })
 
+local center = Tabs.Tap3:AddSection(" ")
+local Slider = center:AddSlider("cSlider", {
+    Title = "AdC",
+    Description = "Center",
+    Default = 0,
+    Min = 0,
+    Max = 1,
+    Rounding = 1,
+    Callback = function(Gx)
+        Adc = Gx
+    end
+})
+
 
 local Toggle = secTpPlayer:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
 
@@ -327,7 +340,7 @@ Toggle:OnChanged(function(Run)
     while _G.TpPlayer do task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,0.5,Ax,Ay,Ay)
+    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,Adc,Ax,Ay,Ay)
         end)
     end
 end)
