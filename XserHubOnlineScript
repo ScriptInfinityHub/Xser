@@ -340,9 +340,7 @@ Toggle:OnChanged(function(Run)
     while _G.TpPlayer do task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-            local now = me.HumanoidRootPart.CFrame
     me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,Adc,Ax,Ay,Ay)
-    me:FindFirstChild("HumanoidRootPart").CFrame = now
         end)
     end
 end)
