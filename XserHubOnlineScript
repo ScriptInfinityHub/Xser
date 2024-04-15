@@ -229,8 +229,6 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
     end)
 end
 
-local tpply = Tabs.Tab3:AddSection("Teleport to Players")
-
 Plr = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
     table.insert(Plr,v.Name) 
@@ -247,7 +245,6 @@ Dropdown:SetValue("...")
 Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
-local dir = Tabs.Tab3:AddSection("Direction")
 
 local Slider = Tabs.Tap3:AddSlider("XSlider", {
     Title = "X",
