@@ -318,7 +318,7 @@ local Slider = Tabs.Tap3:AddSlider("ZSlider", {
     end
 })
 
-local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Tp to Player", Default = false })
+local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
 
 Toggle:OnChanged(function(Run)
     _G.TpPlayer = Run
