@@ -229,6 +229,8 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
     end)
 end
 
+local section = Tabs.Tab3:AddSection("Teleport to Players")
+
 Plr = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
     table.insert(Plr,v.Name) 
@@ -286,12 +288,14 @@ Toggle:OnChanged(function(Run)
     while _G.TpPlayer do task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z)
+    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,0.5)
         end)
     end
 end)
 
 Options.TpPlayerToggle:SetValue(false)
+
+local section = Tabs.Tab3:AddSection("Advance direction")
 
 
 -- Addons:
