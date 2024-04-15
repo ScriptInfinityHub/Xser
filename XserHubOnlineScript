@@ -247,7 +247,8 @@ Dropdown:SetValue("...")
 Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
-local section = Tabs.Tab3:AddSection("Direction")
+Tabs.Tab3:AddSection("Direction")
+
 local Slider = Tabs.Tap3:AddSlider("XSlider", {
     Title = "X",
     Description = "Right side, Left side",
@@ -282,9 +283,9 @@ local Slider = Tabs.Tap3:AddSlider("ZSlider", {
     end
 })
 
-local section = Tabs.Tab3:AddSection("Advance direction")
+Tabs.Tab3:AddSection("Advance direction")
 
-local Slider = Tabs.Tap3:AddSlider("XSlider", {
+local Slider = Tabs.Tap3:AddSlider("AXSlider", {
     Title = "AX",
     Description = "Right side, Left side",
     Default = 0,
@@ -295,7 +296,7 @@ local Slider = Tabs.Tap3:AddSlider("XSlider", {
         Ax = Gx
     end
 })
-local Slider = Tabs.Tap3:AddSlider("YSlider", {
+local Slider = Tabs.Tap3:AddSlider("AYSlider", {
     Title = "AY",
     Description = "Above, Below",
     Default = 0,
@@ -306,7 +307,7 @@ local Slider = Tabs.Tap3:AddSlider("YSlider", {
         Ay = Gy
     end
 })
-local Slider = Tabs.Tap3:AddSlider("ZSlider", {
+local Slider = Tabs.Tap3:AddSlider("AZSlider", {
     Title = "AZ",
     Description = "Front, Back",
     Default = 0,
