@@ -14,6 +14,7 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
+    Tap3 = Window:AddTab({ Title = "Teleport", Icon = "cloud-sun" }),
     Main = Window:AddTab({ Title = "Main", Icon = "cloud-sun" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
@@ -27,6 +28,65 @@ do
         SubContent = "SubContent", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
     })
+    
+    Plr = {}
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+        table.insert(Plr,v.Name) 
+    end
+    local Dropdown = Tabs.Tap3:AddDropdown("TeleportDropdown", {
+        Title = "Select Players",
+        Values =  Plr,
+        Multi = false,
+        Default = 1,
+    })
+
+    Dropdown:SetValue("...")
+
+    Dropdown:OnChanged(function(Player)
+        PlayerTP = Player
+    end)
+    local Slider = Tabs.Tap3:AddSlider("XSlider", {
+        Title = "X",
+        Description = "X",
+        Default = 2,
+        Min = 0,
+        Max = 10,
+        Rounding = 1,
+        Callback = function(Gx)
+            x = Gx
+        end
+    })
+    local Slider = Tabs.Tap3:AddSlider("YSlider", {
+        Title = "Y",
+        Description = "Y",
+        Default = 2,
+        Min = 0,
+        Max = 10,
+        Rounding = 1,
+        Callback = function(Gy)
+            y = Gy
+        end
+    })
+    local Slider = Tabs.Tap3:AddSlider("ZSlider", {
+        Title = "Z",
+        Description = "Z",
+        Default = 2,
+        Min = 0,
+        Max = 10,
+        Rounding = 1,
+        Callback = function(Gz)
+            z = Gz
+        end
+    })
+
+    local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Tp to Player", Default = false })
+
+    Toggle:OnChanged(function()
+        local me = game.Players.LocalPlayer.Character
+        me:FindFirstChild("HumanoidRootPart").CFrame = PlayerTP.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z)
+    end)
+
+    Options.TpPlayerToggle:SetValue(false)
     
 
 local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
