@@ -247,7 +247,7 @@ Dropdown:OnChanged(function(Player)
 end)
 local Slider = Tabs.Tap3:AddSlider("XSlider", {
     Title = "X",
-    Description = "X",
+    Description = "Right side",
     Default = 0,
     Min = -10,
     Max = 10,
@@ -258,7 +258,7 @@ local Slider = Tabs.Tap3:AddSlider("XSlider", {
 })
 local Slider = Tabs.Tap3:AddSlider("YSlider", {
     Title = "Y",
-    Description = "Y",
+    Description = "Above, Below",
     Default = 0,
     Min = -10,
     Max = 10,
@@ -269,7 +269,7 @@ local Slider = Tabs.Tap3:AddSlider("YSlider", {
 })
 local Slider = Tabs.Tap3:AddSlider("ZSlider", {
     Title = "Z",
-    Description = "Z",
+    Description = "Left side",
     Default = 0,
     Min = -10,
     Max = 10,
