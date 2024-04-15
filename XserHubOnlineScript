@@ -228,12 +228,13 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
         print("Input updated:", Input.Value)
     end)
 end
+local secTpPlayer = Tabs.Tap3:AddSection("Interface")
 
 Plr = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
     table.insert(Plr,v.Name) 
 end
-local Dropdown = Tabs.Tap3:AddDropdown("TeleportDropdown", {
+local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
     Multi = false,
@@ -246,7 +247,9 @@ Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
 
-local Slider = Tabs.Tap3:AddSlider("XSlider", {
+local secdirection = Tabs.Tap3:AddSection("Direction")
+
+local Slider = secdirection:AddSlider("XSlider", {
     Title = "X",
     Description = "Right side, Left side",
     Default = 0,
@@ -257,7 +260,7 @@ local Slider = Tabs.Tap3:AddSlider("XSlider", {
         x = Gx
     end
 })
-local Slider = Tabs.Tap3:AddSlider("YSlider", {
+local Slider = secdirection:AddSlider("YSlider", {
     Title = "Y",
     Description = "Above, Below",
     Default = 0,
@@ -268,7 +271,7 @@ local Slider = Tabs.Tap3:AddSlider("YSlider", {
         y = Gy
     end
 })
-local Slider = Tabs.Tap3:AddSlider("ZSlider", {
+local Slider = secdirection:AddSlider("ZSlider", {
     Title = "Z",
     Description = "Front, Back",
     Default = 0,
@@ -280,16 +283,51 @@ local Slider = Tabs.Tap3:AddSlider("ZSlider", {
     end
 })
 
+local secADdirection = Tabs.Tap3:AddSection("Advance direction")
+
+local Slider = secADdirection:AddSlider("AXSlider", {
+    Title = "AdX",
+    Description = "Right side, Left side",
+    Default = 0,
+    Min = -10,
+    Max = 10,
+    Rounding = 1,
+    Callback = function(Gx)
+        Ax = Gx
+    end
+})
+local Slider = secADdirection:AddSlider("AYSlider", {
+    Title = "AdY",
+    Description = "Above, Below",
+    Default = 0,
+    Min = -10,
+    Max = 10,
+    Rounding = 1,
+    Callback = function(Gy)
+        Ay = Gy
+    end
+})
+local Slider = secADdirection:AddSlider("AZSlider", {
+    Title = "AdZ",
+    Description = "Front, Back",
+    Default = 0,
+    Min = -10,
+    Max = 10,
+    Rounding = 1,
+    Callback = function(Gz)
+        Az = Gz
+    end
+})
 
 
-local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
+local Toggle = secTpPlayer:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
 
 Toggle:OnChanged(function(Run)
     _G.TpPlayer = Run
     while _G.TpPlayer do task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z)
+    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,0.5,Ax,Ay,Ay)
         end)
     end
 end)
