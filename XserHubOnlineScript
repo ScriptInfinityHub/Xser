@@ -14,8 +14,8 @@ local Window = Fluent:CreateWindow({
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
-    Tap3 = Window:AddTab({ Title = "Teleport", Icon = "cloud-sun" }),
     Main = Window:AddTab({ Title = "Main", Icon = "cloud-sun" }),
+    Tap3 = Window:AddTab({ Title = "Teleport", Icon = "cloud-sun" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
@@ -28,7 +28,7 @@ do
         SubContent = "SubContent", -- Optional
         Duration = 5 -- Set to nil to make the notification not disappear
     })
-    
+
     Plr = {}
     for i,v in pairs(game:GetService("Players"):GetChildren()) do
         table.insert(Plr,v.Name) 
@@ -81,9 +81,12 @@ do
 
     local Toggle = Tabs.Tap3:AddToggle("TpPlayerToggle", {Title = "Tp to Player", Default = false })
 
-    Toggle:OnChanged(function()
-        local me = game.Players.LocalPlayer.Character
-        me:FindFirstChild("HumanoidRootPart").CFrame = PlayerTP.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z)
+    Toggle:OnChanged(function(Run)
+        _G.TpPlayer = Run
+        while _G.TpPlayer do task.wait()
+            local me = game.Players.LocalPlayer.Character
+        me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z)
+        end
     end)
 
     Options.TpPlayerToggle:SetValue(false)
