@@ -382,17 +382,31 @@ local Slider = center:AddSlider("cSlider", {
 
 
 local Toggle = secTpPlayer:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
-
 Toggle:OnChanged(function(Run)
     _G.TpPlayer = Run
-    while _G.TpPlayer do task.wait()
+    while _G.TpPlayer do
+        task.wait()
         pcall(function()
             local me = game.Players.LocalPlayer.Character
-    me:FindFirstChild("HumanoidRootPart").CFrame = game.Players[PlayerTP].Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(x,y,z,Adc,Ax,Ay,Ay)
+            local targetPlayer = game.Players:FindFirstChild(PlayerTP)
+            if targetPlayer then
+                local targetCharacter = targetPlayer.Character
+                if targetCharacter then
+                    local targetHumanoidRootPart = targetCharacter:FindFirstChild("HumanoidRootPart")
+                    if targetHumanoidRootPart then
+                        me:FindFirstChild("HumanoidRootPart").CFrame = targetHumanoidRootPart.CFrame * CFrame.new(x,y,z,Adc,Ax,Ay,Ay)
+                    else
+                        warn("Target player has no HumanoidRootPart")
+                    end
+                else
+                    warn("Target player has no character")
+                end
+            else
+                warn("Target player not found")
+            end
         end)
     end
 end)
-
 Options.TpPlayerToggle:SetValue(false)
 
 
