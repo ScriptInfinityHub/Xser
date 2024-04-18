@@ -246,6 +246,11 @@ secHome:AddParagraph({
 
 local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
+local updatingParagraph = secTpPlayer:AddParagraph({
+    Title = "Nothing",
+    Content = "Nothing",
+})
+
 local Plr = {}
 
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
@@ -276,11 +281,21 @@ function Dropdown:SetValues(NewValues, PlayerNames)
 end
 
 local function updatePlr()
+    updatingParagraph:SetTitle("Dropdown Updating...")
+    updatingParagraph:SetContent("Please wait while the dropdown is updated.")
+    
     Plr = {}
     for _, player in ipairs(game.Players:GetPlayers()) do
         table.insert(Plr, player.Name)
     end
     Dropdown:SetValues(nil, Plr) -- Update the dropdown when the player list changes
+
+    task.wait(3) -- Wait for 3 seconds
+
+    -- Reset the text to "Nothing" after 3 seconds
+    updatingParagraph:SetTitle("Nothing")
+    updatingParagraph:SetContent("Nothing")
+
 end
 
 -- Update the Plr table when a player joins or leaves the game
