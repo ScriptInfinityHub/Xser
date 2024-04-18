@@ -22,6 +22,27 @@ local Tabs = {
 
 local Options = Fluent.Options
 
+local function TpToTarget(playerName)
+    local player = game.Players:FindFirstChild(playerName)
+    if player then
+        local character = player.Character
+        if character then
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                local targetCFrame = rootPart.CFrame
+                game.Players.LocalPlayer.Character.CFrame = targetCFrame
+            end
+        end
+    end
+end
+
+local function TpToPart(targetCFrame)
+    if targetCFrame then
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(targetCFrame)
+    end
+end
+
+
 do
     Fluent:Notify({
         Title = "Notification",
@@ -292,11 +313,6 @@ game.Players.PlayerRemoving:Connect(updatePlr)
 -- Initial update
 updatePlr()
 
-
-
-
-
-
 local secdirection = Tabs.Tap3:AddSection("Direction (Teleport to Player)")
 
 local Slider = secdirection:AddSlider("XSlider", {
@@ -396,7 +412,7 @@ Toggle:OnChanged(function(Run)
                 if targetCharacter then
                     local targetHumanoidRootPart = targetCharacter:FindFirstChild("HumanoidRootPart")
                     if targetHumanoidRootPart then
-                        me:FindFirstChild("HumanoidRootPart").CFrame = targetHumanoidRootPart.CFrame * CFrame.new(x,y,z,Adc,Ax,Ay,Ay)
+                        TpToTarget(targetHumanoidRootPart * CFrame.new(x,y,z,Adc,Ax,Ay,Ay))
                     else
                         warn("Target player has no HumanoidRootPart")
                     end
