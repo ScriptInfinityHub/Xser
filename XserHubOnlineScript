@@ -308,12 +308,12 @@ Toggle:OnChanged(function(Af)
                         repeat
                             task.wait()
                             v.HumanoidRootPart.Size = Vector3.new(30,30,30)
-                            v.HumanoidRootPart.Transparency = 0.3
+                            v.HumanoidRootPart.Transparency = 0.4
                             if v.HumanoidRootPart.CanCollide == true then
                                 v.HumanoidRootPart.CanCollide = false
                             end
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,4,0)
-                        until v.Humanoid.Health == 0 or v.Humanoid.Health <= 0
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,7,0)
+                        until v.Humanoid.Health == 0 or v.Humanoid.Health <= 0 or _G.AutoFarm == false
                     end
                 end
             end)
