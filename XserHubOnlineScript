@@ -238,7 +238,6 @@ local player = game.Players.LocalPlayer
 local backpack = player.Backpack
 
 local Tools = {}
-local Tool = nil
 
 local Dropdown = secFarm:AddDropdown("ToolDropdown", {
     Title = "Select Tool",
@@ -249,17 +248,17 @@ local Dropdown = secFarm:AddDropdown("ToolDropdown", {
 
 Dropdown:SetValue("...")
 
-Dropdown:OnChanged(function(item)
-    Tool = item
-end)
-
 local function updateDropdownValues()
     Tools = {}
     for _, item in ipairs(backpack:GetChildren()) do
-        table.insert(Tools, item)
+        table.insert(Tools, item.Name)
     end
-
+    Dropdown:SetValues(Tools)
 end
+
+Dropdown:OnChanged(function(item)
+    Tool = item
+end)
 
 -- Connect the backpack changed events to update the dropdown
 backpack.ChildAdded:Connect(updateDropdownValues)
@@ -268,18 +267,19 @@ backpack.ChildRemoved:Connect(updateDropdownValues)
 -- Initial update of dropdown values
 updateDropdownValues()
 
--- local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
 
--- Toggle:OnChanged(function(Eq)
---     _G.Equip = Eq
---     while wait() do
---         if _G.Equip then
---             pcall(function()
---                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Tool))
---             end)
---         end
---     end
--- end)
+local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
+
+Toggle:OnChanged(function(Eq)
+    _G.Equip = Eq
+    while wait() do
+        if _G.Equip then
+            pcall(function()
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Tool))
+            end)
+        end
+    end
+end)
 
 Options.MyToggle:SetValue(false)
 
