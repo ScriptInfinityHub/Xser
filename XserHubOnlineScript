@@ -232,7 +232,7 @@ end
 
 --Home
 
-local secFarm = Tabs.Home:AddSection("Tapy | Farm")
+local secFarm = Tabs.Home:AddSection("Type | Farm")
 
 local player = game.Players.LocalPlayer
 local backpack = player.Backpack
