@@ -238,7 +238,7 @@ local player = game.Players.LocalPlayer
 local backpack = player.Backpack
 
 local Weaponlist = {}
-local Weapon = nil
+
 -- Function to update Weaponlist
 local function updateWeaponlist()
     Weaponlist = {}
@@ -256,33 +256,38 @@ updateWeaponlist()
 backpack.ChildAdded:Connect(updateWeaponlist)
 backpack.ChildRemoved:Connect(updateWeaponlist)
 
+-- Create dropdown
 local Dropdown = secFarm:AddDropdown("ToolDropdown", {
     Title = "Select Tool",
-    Values = Weaponlist, -- Initial values set to Weaponlist
+    Values = Weaponlist,
     Multi = false,
     Default = "...",
 })
 
 Dropdown:SetValue("...")
 
+local Weapon = ""
+
 Dropdown:OnChanged(function(items)
-    Weapon = items
+    Weapon = items[1]
 end)
 
 local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
 
 Toggle:OnChanged(function(Eq)
     _G.Equip = Eq
-    while wait() do
-        if _G.Equip then
-            pcall(function()
-                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
-            end)
-        end
+    if _G.Equip then
+        pcall(function()
+            local tool = game.Players.LocalPlayer.Backpack:FindFirstChild(Weapon)
+            if tool then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+            end
+        end)
     end
 end)
 
 Options.MyToggle:SetValue(false)
+
 
 
 -- local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = false })
