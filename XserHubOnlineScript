@@ -238,6 +238,7 @@ local player = game.Players.LocalPlayer
 local backpack = player.Backpack
 
 local Tools = {}
+local Tool = nil
 
 local Dropdown = secFarm:AddDropdown("ToolDropdown", {
     Title = "Select Tool",
