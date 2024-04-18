@@ -251,12 +251,14 @@ for i,v in pairs(game:GetService("Players"):GetChildren()) do
     table.insert(Plr,v.Name) 
 end
 spawn(function ()
-        local players = game:GetService("Players")
+    while wait() do
+            local players = game:GetService("Players")
         players.PlayerAdded:Connect(function(player)
             for i,v in pairs(game:GetService("Players"):GetChildren()) do
-                table.insert(Plr,v.Name) 
+               table.insert(Plr,v.Name) 
             end
         end)
+    end
 end)
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
