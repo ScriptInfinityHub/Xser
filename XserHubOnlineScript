@@ -292,7 +292,7 @@ local backpack = player.Backpack
 --     end
 -- end)
 
-Options.MyToggle:SetValue(false)
+-- Options.MyToggle:SetValue(false)
 
 
 local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = false })
