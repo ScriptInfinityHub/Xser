@@ -278,7 +278,9 @@ end
 local function updatePlr()
     Plr = {}
     for _, player in ipairs(game.Players:GetPlayers()) do
-        table.insert(Plr, player.Name)
+        if player ~= game.Players.LocalPlayer then
+            table.insert(Plr, player.Name)
+        end
     end
     Dropdown:SetValues(nil, Plr) -- Update the dropdown when the player list changes
 end
