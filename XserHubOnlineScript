@@ -252,7 +252,7 @@ local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
     Multi = false,
-    Default = 1,
+    Default = "...",
 })
 
 Dropdown:SetValue("...")
