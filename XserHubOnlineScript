@@ -294,13 +294,13 @@ local monInfo = {
     {level = 1, levelMax = 9, mon = "Pirate", cFrameMob = CFrame.new(1059.37195, 15.4495068, 1550.4231, 0.939700544, -0, -0.341998369, 0, 1, -0, 0.341998369, 0, 0.939700544)},
     -- add more level ranges here
 }
-local function TptoTarget(Target)
-    local plr = game.Players.LocalPlayer
-    local rootpart = plr:FindFirstChild("HumanoidRootPart")
-    if rootpart then
-        rootpart.CFrame = Target
-    end
-end
+-- local function TptoTarget(Target)
+--     local plr = game.Players.LocalPlayer
+--     local rootpart = plr:FindFirstChild("HumanoidRootPart")
+--     if rootpart then
+--         rootpart.CFrame = Target
+--     end
+-- end
 local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = false })
 
 Toggle:OnChanged(function(Af)
@@ -309,21 +309,21 @@ Toggle:OnChanged(function(Af)
         if _G.AutoFarm then
             pcall(function ()
                 for _,v in pairs(game:GetService("Workspace")["_Mob"]:GetChildren()) do
-                    -- if v.Name == monInfo.mon then
-                    --     if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
-                    --         if v.Humanoid.Health > 0 then
-                    --     repeat
-                    --         task.wait()
-                    --         v.HumanoidRootPart.Size = Vector3.new(30,30,30)
-                    --         v.HumanoidRootPart.Transparency = 0.3
-                    --         if v.HumanoidRootPart.CanCollide == true then
-                    --             v.HumanoidRootPart.CanCollide = false
-                    --         end
-                    --         TptoTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,4,0))
-                    --     until v.Humanoid.Health == 0 or v.Humanoid.Health <= 0
-                    --         end
-                    --     end
-                    -- end
+                    if v.Name == monInfo.mon then
+                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
+                            if v.Humanoid.Health > 0 then
+                        repeat
+                            task.wait()
+                            v.HumanoidRootPart.Size = Vector3.new(30,30,30)
+                            v.HumanoidRootPart.Transparency = 0.3
+                            if v.HumanoidRootPart.CanCollide == true then
+                                v.HumanoidRootPart.CanCollide = false
+                            end
+                            -- TptoTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,4,0))
+                        until v.Humanoid.Health == 0 or v.Humanoid.Health <= 0
+                            end
+                        end
+                    end
                 end
             end)
         end
