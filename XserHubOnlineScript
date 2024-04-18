@@ -310,7 +310,7 @@ Toggle:OnChanged(function(Af)
             pcall(function ()
                 for _,v in pairs(game:GetService("Workspace")["_Mob"]:GetChildren()) do
                     if v.Name == monInfo.mon then
-                        if v.Name == Mon and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid")   then
+                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
                             if v.Humanoid.Health > 0 then
                         repeat
                             task.wait()
