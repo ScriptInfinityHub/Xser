@@ -353,7 +353,7 @@ updatePlr()
 
 local secdirection = Tabs.Tap3:AddSection("Direction (Teleport to Player)")
 
-local Slider = secdirection:AddSlider("XSlider", {
+local SliderX = secdirection:AddSlider("XSlider", {
     Title = "X",
     Description = "Right side, Left side",
     Default = 0,
@@ -364,7 +364,7 @@ local Slider = secdirection:AddSlider("XSlider", {
         x = Gx
     end
 })
-local Slider = secdirection:AddSlider("YSlider", {
+local SliderY = secdirection:AddSlider("YSlider", {
     Title = "Y",
     Description = "Above, Below",
     Default = 0,
@@ -375,7 +375,7 @@ local Slider = secdirection:AddSlider("YSlider", {
         y = Gy
     end
 })
-local Slider = secdirection:AddSlider("ZSlider", {
+local SliderZ = secdirection:AddSlider("ZSlider", {
     Title = "Z",
     Description = "Front, Back",
     Default = 0,
@@ -389,7 +389,7 @@ local Slider = secdirection:AddSlider("ZSlider", {
 
 local secADdirection = Tabs.Tap3:AddSection("Advance direction (Teleport to Player)")
 
-local Slider = secADdirection:AddSlider("AXSlider", {
+local SliderAdX = secADdirection:AddSlider("AXSlider", {
     Title = "AdX",
     Description = "Right side, Left side",
     Default = 12,
@@ -400,7 +400,7 @@ local Slider = secADdirection:AddSlider("AXSlider", {
         Ax = Gx
     end
 })
-local Slider = secADdirection:AddSlider("AYSlider", {
+local SliderAdY = secADdirection:AddSlider("AYSlider", {
     Title = "AdY",
     Description = "Tilt forward, Tilt back",
     Default = 0,
@@ -411,7 +411,7 @@ local Slider = secADdirection:AddSlider("AYSlider", {
         Ay = Gy
     end
 })
-local Slider = secADdirection:AddSlider("AZSlider", {
+local SliderAdZ = secADdirection:AddSlider("AZSlider", {
     Title = "AdZ",
     Description = "",
     Default = 0,
@@ -424,7 +424,7 @@ local Slider = secADdirection:AddSlider("AZSlider", {
 })
 
 local center = Tabs.Tap3:AddSection(" ")
-local Slider = center:AddSlider("cSlider", {
+local SliderAdC = center:AddSlider("cSlider", {
     Title = "AdC",
     Description = "Center",
     Default = 0,
@@ -435,6 +435,37 @@ local Slider = center:AddSlider("cSlider", {
         Adc = Gx
     end
 })
+
+center:AddButton({
+        Title = "Change Setting to Default",
+        Description = "The value change to Default",
+        Callback = function()
+            Window:Dialog({
+                Title = "Do you want to change?",
+                Content = "The value change to Default",
+                Buttons = {
+                    {
+                        Title = "Confirm",
+                        Callback = function()
+                            SliderX:SetValue(0)
+                            SliderY:SetValue(0)
+                            SliderZ:SetValue(0)
+                            SliderAdX:SetValue(12)
+                            SliderAdY:SetValue(0)
+                            SliderAdZ:SetValue(0)
+                            SliderAdC:SetValue(0)
+                        end
+                    },
+                    {
+                        Title = "Cancel",
+                        Callback = function()
+                            print("Cancelled the dialog.")
+                        end
+                    }
+                }
+            })
+        end
+    })
 
 
 local Toggle = secTpPlayer:AddToggle("TpPlayerToggle", {Title = "Teleport to Player", Default = false })
