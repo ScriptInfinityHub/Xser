@@ -307,8 +307,8 @@ local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = f
 
 Toggle:OnChanged(function(Af)
     _G.AutoFarm = Af
-    while wait() do
-        if _G.AutoFarm then
+    if _G.AutoFarm then
+        while wait() do
             print("hi")
             -- pcall(function()
             --     for i,v in pairs(game:GetService("Workspace")["_Mob"]:GetChildren()) do
