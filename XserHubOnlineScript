@@ -237,35 +237,46 @@ local secFarm = Tabs.Home:AddSection("Type | Farm")
 local player = game.Players.LocalPlayer
 local backpack = player.Backpack
 
-local Tools = {}
+local Weaponlist = {}
+local Weapon = nil
+
+local function updateWeaponList()
+    Weaponlist = {}
+    for _, item in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        table.insert(Weaponlist, item.Name)
+    end
+end
+
+-- Initial population of Weaponlist
+updateWeaponList()
 
 local Dropdown = secFarm:AddDropdown("ToolDropdown", {
     Title = "Select Tool",
-    Values = Tools,
+    Values = Weaponlist, -- Initial values set to Weaponlist
     Multi = false,
     Default = "...",
 })
 
 Dropdown:SetValue("...")
 
-local function updateDropdownValues()
-    Tools = {}
-    for _, item in ipairs(backpack:GetChildren()) do
-        table.insert(Tools, item.Name)
-    end
-    Dropdown:SetValues(Tools)
-end
-
 Dropdown:OnChanged(function(item)
-    Tool = item
+    Weapon = item
 end)
 
--- Connect the backpack changed events to update the dropdown
-backpack.ChildAdded:Connect(updateDropdownValues)
-backpack.ChildRemoved:Connect(updateDropdownValues)
+game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(item)
+    table.insert(Weaponlist, item.Name)
+    Dropdown:SetValues(Weaponlist) -- Update dropdown values
+end)
 
--- Initial update of dropdown values
-updateDropdownValues()
+game.Players.LocalPlayer.Backpack.ChildRemoved:Connect(function(item)
+    for i, name in ipairs(Weaponlist) do
+        if name == item.Name then
+            table.remove(Weaponlist, i)
+            Dropdown:SetValues(Weaponlist) -- Update dropdown values
+            break
+        end
+    end
+end)
 
 
 local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
