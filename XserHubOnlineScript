@@ -316,7 +316,7 @@ while wait() do
                                 v.HumanoidRootPart.CanCollide = false
                             end
                              game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,10,0)
-                        until v.Humanoid.Health == 0
+                        until v.Humanoid.Health == 0 or _G.AutoFarm == false
                     end
                 end
             end)
