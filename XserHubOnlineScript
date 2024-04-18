@@ -246,20 +246,22 @@ secHome:AddParagraph({
 
 local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
+local Plr = {}
+
+local function updateDropdown()
     Plr = {}
-for i,v in pairs(game:GetService("Players"):GetChildren()) do
-    table.insert(Plr,v.Name) 
-end
-spawn(function ()
-    while wait() do
-            local players = game:GetService("Players")
-        players.PlayerAdded:Connect(function(player)
-            for i,v in pairs(game:GetService("Players"):GetChildren()) do
-               table.insert(Plr,v.Name) 
-            end
-        end)
+    
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        table.insert(Plr, player.Name)
     end
-end)
+end
+
+updateDropdown()
+
+
+while wait(1) do
+    updateDropdown()
+end
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
