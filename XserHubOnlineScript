@@ -27,10 +27,10 @@ local function TpToTarget(playerName)
     if player then
         local character = player.Character
         if character then
-            local rootPart = character:FindFirstChild("HumanoidRootPart")
-            if rootPart then
-                local targetCFrame = rootPart.CFrame
-                game.Players.LocalPlayer.Character.CFrame = targetCFrame
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if humanoidRootPart then
+                local targetCFrame = humanoidRootPart.CFrame
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(targetCFrame)
             end
         end
     end
@@ -405,23 +405,7 @@ Toggle:OnChanged(function(Run)
     while _G.TpPlayer do
         task.wait()
         pcall(function()
-            local me = game.Players.LocalPlayer.Character
-            local targetPlayer = game.Players:FindFirstChild(PlayerTP)
-            if targetPlayer then
-                local targetCharacter = targetPlayer.Character
-                if targetCharacter then
-                    local targetHumanoidRootPart = targetCharacter:FindFirstChild("HumanoidRootPart")
-                    if targetHumanoidRootPart then
-                        TpToTarget(targetHumanoidRootPart * CFrame.new(x,y,z,Adc,Ax,Ay,Ay))
-                    else
-                        warn("Target player has no HumanoidRootPart")
-                    end
-                else
-                    warn("Target player has no character")
-                end
-            else
-                warn("Target player not found")
-            end
+            TpToTarget(PlayerTP * CFrame.new(x,y,z,Adc,Ax,Ay,Ay))
         end)
     end
 end)
