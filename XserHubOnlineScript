@@ -3,8 +3,8 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = "Xser 1.0",
-    SubTitle = "By Infinity",
+    Title = "Xser V1.0 | ",
+    SubTitle = "by Infinity Hub",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -15,6 +15,7 @@ local Window = Fluent:CreateWindow({
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "cloud-sun" }),
+    Home = Window:AddTab({ Title = "Home", Icon = "home" }),
     Tap3 = Window:AddTab({ Title = "Teleport", Icon = "wind" }),
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
@@ -228,12 +229,35 @@ local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "l", Default = false })
         print("Input updated:", Input.Value)
     end)
 end
+
+--Home
+
+local secHome = Tabs.Home:AddSection("Home")
+secHome:AddParagraph({
+    Title = "This script make by Infinity Hub",
+    Content = "enjoy to use!"
+})
+secHome:AddParagraph({
+    Title = "If you found the error report in Discord",
+    Content = "discord https //----"
+})
+
+--Teleport
+
 local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
-Plr = {}
+    Plr = {}
 for i,v in pairs(game:GetService("Players"):GetChildren()) do
     table.insert(Plr,v.Name) 
 end
+spawn(function ()
+        local players = game:GetService("Players")
+        players.PlayerAdded:Connect(function(player)
+            for i,v in pairs(game:GetService("Players"):GetChildren()) do
+                table.insert(Plr,v.Name) 
+            end
+        end)
+end)
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
