@@ -232,67 +232,57 @@ end
 
 --Home
 
--- local secFarm = Tabs.Home:AddSection("Type | Farm")
+local secFarm = Tabs.Home:AddSection("Type | Farm")
 
--- local player = game.Players.LocalPlayer
--- local backpack = player.Backpack
+local player = game.Players.LocalPlayer
+local backpack = player.Backpack
 
--- local Weaponlist = {}
--- local Weapon = nil
+local Weaponlist = {}
+local Weapon = nil
+-- Function to update Weaponlist
+local function updateWeaponlist()
+    Weaponlist = {}
+    for _, tool in ipairs(backpack:GetChildren()) do
+        if tool:IsA("Tool") then
+            table.insert(Weaponlist, tool.Name)
+        end
+    end
+end
 
--- local function updateWeaponList()
---     Weaponlist = {}
---     for _, item in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
---         table.insert(Weaponlist, item.Name)
---     end
--- end
+-- Initial update
+updateWeaponlist()
 
--- -- Initial population of Weaponlist
--- updateWeaponList()
+-- Listen for tool added and removed events
+backpack.ChildAdded:Connect(updateWeaponlist)
+backpack.ChildRemoved:Connect(updateWeaponlist)
 
--- local Dropdown = secFarm:AddDropdown("ToolDropdown", {
---     Title = "Select Tool",
---     Values = Weaponlist, -- Initial values set to Weaponlist
---     Multi = false,
---     Default = "...",
--- })
+local Dropdown = secFarm:AddDropdown("ToolDropdown", {
+    Title = "Select Tool",
+    Values = Weaponlist, -- Initial values set to Weaponlist
+    Multi = false,
+    Default = "...",
+})
 
--- Dropdown:SetValue("...")
+Dropdown:SetValue("...")
 
--- Dropdown:OnChanged(function(item)
---     Weapon = item
--- end)
+Dropdown:OnChanged(function(items)
+    Weapon = items
+end)
 
--- game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(item)
---     table.insert(Weaponlist, item.Name)
---     Dropdown:SetValues(Weaponlist) -- Update dropdown values
--- end)
+local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
 
--- game.Players.LocalPlayer.Backpack.ChildRemoved:Connect(function(item)
---     for i, name in ipairs(Weaponlist) do
---         if name == item.Name then
---             table.remove(Weaponlist, i)
---             Dropdown:SetValues(Weaponlist) -- Update dropdown values
---             break
---         end
---     end
--- end)
+Toggle:OnChanged(function(Eq)
+    _G.Equip = Eq
+    while wait() do
+        if _G.Equip then
+            pcall(function()
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
+            end)
+        end
+    end
+end)
 
-
--- local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
-
--- Toggle:OnChanged(function(Eq)
---     _G.Equip = Eq
---     while wait() do
---         if _G.Equip then
---             pcall(function()
---                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
---             end)
---         end
---     end
--- end)
-
--- Options.MyToggle:SetValue(false)
+Options.MyToggle:SetValue(false)
 
 
 -- local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = false })
