@@ -258,7 +258,7 @@ local function updateDropdownValues()
     for _, item in ipairs(backpack:GetChildren()) do
         table.insert(Tools, item)
     end
-    Dropdown:SetValues(Tools)
+
 end
 
 -- Connect the backpack changed events to update the dropdown
