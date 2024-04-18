@@ -248,20 +248,25 @@ local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
 local Plr = {}
 
-local function updateDropdown()
+local function updatePlr()
     Plr = {}
-    
-    for _, player in ipairs(game.Players:GetPlayers()) do
+    for _, player in ipairs(game.Players:GetChildren()) do
         table.insert(Plr, player.Name)
     end
 end
 
-updateDropdown()
 
+game.Players.PlayerAdded:Connect(function(player)
+    updatePlr()
+end)
 
-while wait(1) do
-    updateDropdown()
-end
+game.Players.PlayerRemoving:Connect(function(player)
+    updatePlr()
+end)
+
+-- Initial update
+updatePlr()
+
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
