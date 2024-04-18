@@ -268,18 +268,18 @@ backpack.ChildRemoved:Connect(updateDropdownValues)
 -- Initial update of dropdown values
 updateDropdownValues()
 
-local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
+-- local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
 
-Toggle:OnChanged(function(Eq)
-    _G.Equip = Eq
-    while wait() do
-        if _G.Equip then
-            pcall(function()
-                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Tool))
-            end)
-        end
-    end
-end)
+-- Toggle:OnChanged(function(Eq)
+--     _G.Equip = Eq
+--     while wait() do
+--         if _G.Equip then
+--             pcall(function()
+--                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Tool))
+--             end)
+--         end
+--     end
+-- end)
 
 Options.MyToggle:SetValue(false)
 
