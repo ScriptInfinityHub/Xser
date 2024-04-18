@@ -232,15 +232,67 @@ end
 
 --Home
 
-local secHome = Tabs.Home:AddSection("Home")
-secHome:AddParagraph({
-    Title = "This script make by Infinity Hub",
-    Content = "enjoy to use!"
+local secFarm = Tabs.Home:AddSection("Tapy | Farm")
+
+local player = game.Players.LocalPlayer
+local backpack = player.Backpack
+
+local Tools = {}
+
+local Dropdown = secFarm:AddDropdown("ToolDropdown", {
+    Title = "Select Tool",
+    Values = Tools,
+    Multi = false,
+    Default = "...",
 })
-secHome:AddParagraph({
-    Title = "If you found the error report in Discord",
-    Content = "discord https //----"
-})
+
+Dropdown:SetValue("...")
+
+Dropdown:OnChanged(function(item)
+    Tool = item
+end)
+
+local function updateDropdownValues()
+    Tools = {}
+    for _, item in ipairs(backpack:GetChildren()) do
+        table.insert(Tools, item)
+    end
+    Dropdown:SetValues(Tools)
+end
+
+-- Connect the backpack changed events to update the dropdown
+backpack.ChildAdded:Connect(updateDropdownValues)
+backpack.ChildRemoved:Connect(updateDropdownValues)
+
+-- Initial update of dropdown values
+updateDropdownValues()
+
+local Toggle = secFarm:AddToggle("ToggleTool", {Title = "Equip Tool", Default = false })
+
+Toggle:OnChanged(function(Eq)
+    _G.Equip = Eq
+    while wait() do
+        if _G.Equip then
+            pcall(function()
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Tool))
+            end)
+        end
+    end
+end)
+
+Options.MyToggle:SetValue(false)
+
+
+local Toggle = secFarm:AddToggle("ToggleFarm", {Title = "Auto Farm", Default = false })
+
+Toggle:OnChanged(function()
+    local ply = game.Players.LocalPlayer
+    local Level = ply.Level
+
+end)
+
+Options.MyToggle:SetValue(false)
+
 
 --Teleport
 
