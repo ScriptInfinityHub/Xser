@@ -248,25 +248,6 @@ local secTpPlayer = Tabs.Tap3:AddSection("Teleport to Player")
 
 local Plr = {}
 
-local function updatePlr()
-    Plr = {}
-    for _, player in ipairs(game.Players:GetChildren()) do
-        table.insert(Plr, player.Name)
-    end
-end
-
-
-game.Players.PlayerAdded:Connect(function(player)
-    updatePlr()
-end)
-
-game.Players.PlayerRemoving:Connect(function(player)
-    updatePlr()
-end)
-
--- Initial update
-updatePlr()
-
 local Dropdown = secTpPlayer:AddDropdown("TeleportDropdown", {
     Title = "Select Players",
     Values =  Plr,
@@ -279,6 +260,40 @@ Dropdown:SetValue("...")
 Dropdown:OnChanged(function(Player)
     PlayerTP = Player
 end)
+
+function Dropdown:SetValues(NewValues, PlayerNames)
+    if NewValues then
+        self.Values = NewValues
+    end
+
+    local Names = {}
+    for _, name in ipairs(PlayerNames) do
+        table.insert(Names, name)
+    end
+    self.Values = Names
+
+    self:BuildDropdownList()
+end
+
+local function updatePlr()
+    Plr = {}
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        table.insert(Plr, player.Name)
+    end
+    Dropdown:SetValues(nil, Plr) -- Update the dropdown when the player list changes
+end
+
+-- Update the Plr table when a player joins or leaves the game
+game.Players.PlayerAdded:Connect(updatePlr)
+game.Players.PlayerRemoving:Connect(updatePlr)
+
+-- Initial update
+updatePlr()
+
+
+
+
+
 
 local secdirection = Tabs.Tap3:AddSection("Direction (Teleport to Player)")
 
